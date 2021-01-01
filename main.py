@@ -2,6 +2,7 @@ import discord
 import os
 import requests
 import json
+from keep_alive import keep_alive
 
 client = discord.Client()
 
@@ -20,8 +21,12 @@ async def on_message(message):
   if message.author == client.user:
     return
   
-  if message.content.startswith('quote'):
+  if message.content == ('quote'):
     quote = get_quote()
     await message.channel.send(quote)
 
+  if message.content == ('quote help'):
+    await message.channel.send('**Commands**\n`quote` - get a random quote\n`quote help` - bot information')
+
+keep_alive()
 client.run(os.getenv('TOKEN'))
